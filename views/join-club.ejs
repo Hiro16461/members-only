@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Join Club</title>
+	</head>
+	<body>
+		<h1>Sign up for club membership</h1>
+        <p>Enter the correct membership code to become a club member!</p>
+
+        <% if(typeof error !== "undefined") { %>
+            <p style="color: red;"><%= error %></p>
+        <% } %>
+
+        <form action="/join-club" method="post">
+            <div><label for="passcode">Membership code:</label>
+                <input type="password" id="passcode" name="passcode" required>
+            </div>
+            <button type="submit">Become a member</button>
+        </form>
+        <a href="/">Back to home</a>
+	</body>
+</html>

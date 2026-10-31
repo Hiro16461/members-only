@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Members Only</title>
+</head>
+<body>
+    <h1>Log in</h1>
+
+    <% if (typeof error !== "undefined" && error) { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+
+    <form action="/log-in" method="post">
+        <div>
+            <label for="username">Mail address (Username):</label>
+            <input type="email" name="username" id="username" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+        <button type="submit">Log in</button>
+    </form>
+
+    <p>Don't have an account? <a href="/sign-up">Sign up here</a></p>
+    <p><a href="/">Back to home</a></p>
+</body>
+</html>

@@ -1,8 +1,8 @@
 require('dotenv').config();
-const { Pool } = require('pg');
+
 const bcrypt = require('bcryptjs');
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const pool = require('./pool');
 
 async function populateDB() {
 	console.log('データベースのセットアップとデータ投入を開始します...');
