@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a new message</title>
+</head>
+<body>
+    <h1>Create a New Message</h1>
+
+    <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+        <ul>
+            <% errors.forEach(error => { %>
+                <li style="color: red;"><%= error.msg %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <form action="/new-message" method="POST">
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="<%= locals.formData ? formData.title : '' %>" required>
+        </div>
+        <div>
+            <label for="text">Message Text:</label>
+            <textarea id="text" name="text" rows="5" required><%= locals.formData ? formData.text : '' %></textarea>
+        </div>
+        <button type="submit">Post Message</button>
+    </form>
+
+    <p><a href="/">Back to Home</a></p>
+</body>
+</html>

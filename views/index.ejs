@@ -9,6 +9,7 @@
     <h1>Members-Only Bulletin Board</h1>
 <% if (locals.currentUser) { %>
     <p>Welcome、<%= currentUser.first_name %> ！</p>
+    <p><a href="/new-message"><button>Create a new message</button></a></p>
     <% if (!currentUser.membership_status) { %>
         <a href="/join-club"><button>Become a club member（Please enter a secret code）</button></a>
     <% } else { %>

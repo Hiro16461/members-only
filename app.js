@@ -102,6 +102,8 @@ app.get('/log-out', (req, res, next) => {
 app.get('/join-club', userController.getJoinClub);
 app.post('/join-club', userController.postJoinClub);
 app.post('/messages/:id/delete', userController.deleteMessage);
+app.get('/new-message', userController.getCreateMessage);
+app.post('/new-message', userController.postCreateMessage);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

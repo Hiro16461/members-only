@@ -118,3 +118,49 @@ exports.deleteMessage = async (req, res) => {
         res.status(500).send('A database error occurred while deleting the message.')
     }
 }
+
+exports.getCreateMessage = (req, res) => {
+	if (!req.isAuthenticated()) {
+		return res.redirect('/log-in')
+	}
+	res.render('create-message')
+}
+
+exports.postCreateMessage = [
+	(req, res, next) => {
+		if (!req.isAuthenticated()) {
+			return res.redirect('/log-in')
+		}
+		next()
+	},
+
+	body('title').trim().notEmpty().withMessage('Title is required.').escape(),
+	body('text').trim().notEmpty().withMessage('Message text is required.').escape(),
+
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.render('create-message', {
+				errors: errors.array(),
+				formData: req.body
+			});
+		}
+		try {
+			const { title, text } = req.body;
+			const userId = req.user.id;
+			await pool.query(`INSERT INTO messages (title, text, user_id) VALUES ($1, $2, $3)`,
+				[title, text, userId]
+			);
+			res.redirect('/')
+		} catch (err) {
+			console.error('Message creation error:', err);
+			res.status(500).render('create-message', {
+				errors: [
+					{ msg: 'A database error occurred while creating the message.' },
+				],
+				formData: req.body
+			});
+		}
+	}
+
+]
