@@ -43,14 +43,15 @@ exports.postSignup = [
 			});
 		}
 		try {
-			const { firstName, lastName, username, password } = req.body;
+			const { firstName, lastName, username, password, isAdmin } = req.body;
 			const hashedPassword = await bcrypt.hash(password, 10);
+			const adminStatus = isAdmin === "true";
 
 			await pool.query(
 				`
                 INSERT INTO users (first_name, last_name, username, password, membership_status, is_admin)
                 VALUES ($1, $2, $3, $4, $5, $6)`,
-				[firstName, lastName, username, hashedPassword, false, false],
+				[firstName, lastName, username, hashedPassword, false, adminStatus],
 			);
 			res.redirect('/log-in');
 		} catch (err) {
